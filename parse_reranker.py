@@ -23,19 +23,9 @@ print(device)
 
 
 def train(model, train_loader, experiment, hyperparams):
-    """
-    Trains the model.
-
-    :param model: the initialized model to use for forward and backward pass
-    :param train_loader: Dataloader of training data
-    :param experiment: comet.ml experiment object
-    :param hyperparams: hyperparameters dictionary
-    """
-    # TODO: Define loss function and optimizer
     loss_fn = nn.CrossEntropyLoss(ignore_index=0)
     optimizer = torch.optim.Adam(model.parameters(), lr=hyperparams['learning_rate'])
 
-    # TODO: Write training loop
     model = model.train()
     with experiment.train():
         for _ in range(hyperparams['num_epochs']):
@@ -54,20 +44,10 @@ def train(model, train_loader, experiment, hyperparams):
 
 
 def validate(model, validate_loader, experiment, hyperparams):
-    """
-    Validates the model performance as LM on never-seen data.
-
-    :param model: the trained model to use for prediction
-    :param validate_loader: Dataloader of validation data
-    :param experiment: comet.ml experiment object
-    :param hyperparams: hyperparameters dictionary
-    """
-    # TODO: Define loss function, total loss, and total word count
     loss_fn = nn.CrossEntropyLoss(ignore_index=0)
     total_loss = 0
     word_count = 0
 
-    # TODO: Write validating loop
     model = model.eval()
     with experiment.validate():
         with torch.no_grad():
@@ -89,15 +69,6 @@ def validate(model, validate_loader, experiment, hyperparams):
 
 
 def test(model, test_dataset, experiment, hyperparams):
-    """
-    Validates and tests the model for parse reranking.
-
-    :param model: the trained model to use for prediction
-    :param test_dataset: Dataloader of testing data
-    :param experiment: comet.ml experiment object
-    :param hyperparams: Hyperparameters dictionary
-    """
-    # TODO: Write testing loops
     model = model.eval()
     with experiment.test():
         with torch.no_grad():
@@ -152,7 +123,7 @@ if __name__ == "__main__":
     parser.add_argument("-s", "--save", action="store_true",
                         help="save model.pt")
     parser.add_argument("-T", "--train", action="store_true",
-                        help="run training loop")
+                        help="run training loo      p")
     parser.add_argument("-v", "--validate", action="store_true",
                         help="run validation loop")
     parser.add_argument("-t", "--test", action="store_true",
@@ -160,9 +131,9 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # Make sure you modify the `.comet.config` file
-    API_KEY = 'EiedcWRjPqW0cWexaA4uuwsSW'
-    PROJ_NAME = 'parse-reranker'
-    WORKSPACE = '4r0fgaebyc'
+    API_KEY = None
+    PROJ_NAME = None
+    WORKSPACE = None
     experiment = Experiment(api_key=API_KEY,
                             project_name=PROJ_NAME,
                             workspace=WORKSPACE)

@@ -5,14 +5,6 @@ import numpy as np
 
 class ParsingDataset(Dataset):
     def __init__(self, input_file):
-        """
-        Read and parse the train file line by line. Create a vocabulary
-        dictionary that maps all the unique tokens from your data as
-        keys to a unique integer value. Then vectorize your
-        data based on your vocabulary dictionary.
-
-        :param input_file: the data file pathname
-        """
         # Read
         with open(input_file, 'r') as f:
             raw = f.read().split('\n')
@@ -49,21 +41,9 @@ class ParsingDataset(Dataset):
                         'length': length}
   
     def __len__(self):
-        """
-        len should return a the length of the dataset
-
-        :return: an integer length of the dataset
-        """
         return self.dataset['inputs'].shape[0]
 
     def __getitem__(self, idx):
-        """
-        getitem should return a tuple or dictionary of the data at some index
-
-        :param idx: the index for retrieval
-
-        :return: tuple or dictionary of the data
-        """
         return {'inputs': self.dataset['inputs'][idx], 
                 'labels': self.dataset['labels'][idx],
                 'length': self.dataset['length'][idx]}
@@ -72,16 +52,6 @@ class ParsingDataset(Dataset):
 
 class RerankingDataset(Dataset):
     def __init__(self, parse_file, gold_file, word2id):
-        """
-        Read and parse the parse files line by line. Unk all words that has not
-        been encountered before (not in word2id). Split the data according to
-        gold file. Calculate number of constituents from the gold file.
-
-        :param parse_file: the file containing potential parses
-        :param gold_file: the file containing the right parsings
-        :param word2id: the previous mapping (dictionary) from word to its word
-                        id
-        """
         # Read
         with open(parse_file) as f1, open(gold_file) as f2:
             rank = f1.read().split('\n')
@@ -136,21 +106,9 @@ class RerankingDataset(Dataset):
                         'id': sentence_id}
 
     def __len__(self):
-        """
-        len should return a the length of the dataset
-
-        :return: an integer length of the dataset
-        """
         return self.dataset['inputs'].shape[0]
 
     def __getitem__(self, idx):
-        """
-        getitem should return a tuple or dictionary of the data at some index
-
-        :param idx: the index for retrieval
-
-        :return: tuple or dictionary of the data
-        """
         return {'inputs': self.dataset['inputs'][idx],
                 'length': self.dataset['length'][idx],
                 'num_correct': self.dataset['num_correct'][idx],
