@@ -1,0 +1,2 @@
+# parse-rank
+Parse reranking language model using LSTM. The model learns on the tree representation of sentence parses to predict the parses of unseen sentences. The test set included had 50 possible variants of parsing of the same sentence, which was compared with the test output to compute the F1 score. More details on the sentence parsing and the architecture can be found in this [paper](http://cs.brown.edu/~dc65/papers/emnlp16.pdf). 
