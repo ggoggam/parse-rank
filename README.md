@@ -1,6 +1,6 @@
 # parse-rank
 
-## Parse reranking language model using LSTM. 
+Parse reranking language model using LSTM. 
 
 The model learns on the tree representation of sentence parses to predict the parses of unseen sentences by sequentially predicting the tokens.
 
